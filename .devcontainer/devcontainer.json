@@ -1,0 +1,54 @@
+{
+  "name": "Dev Environment",
+  "dockerComposeFile": ["./docker-compose.yml"],
+  "service": "application",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17"
+    }
+  },
+  "forwardPorts": [3306, 6379, 9092, 8080, 29092],
+  "customizations": {
+    "jetbrains": {
+      "runConfigurations": {
+        "ServiceApplication": {
+          "type": "SpringBootApplicationConfigurationType",
+          "mainClass": "uk.jinhy.server.service.ServiceApplication",
+          "module": "service.main",
+          "vmParameters": "-Dspring.profiles.active=local",
+          "envs": {
+            "SPRING_PROFILES_ACTIVE": "local"
+          },
+          "workingDirectory": "$PROJECT_DIR$"
+        }
+      },
+      "plugins": [
+        "com.intellij.spring",
+        "com.intellij.spring.boot",
+        "com.intellij.spring.data",
+        "com.intellij.spring.mvc",
+        "com.intellij.spring.security",
+
+        "com.intellij.database",
+        "org.jetbrains.plugins.redis",
+
+        "ch.dasoft.kafka.idea",
+        "com.github.kafkakv.kafka-viewer",
+
+        "com.intellij.javaee.jpa",
+        "com.intellij.persistence",
+        "org.jetbrains.plugins.gradle",
+        "com.intellij.java",
+
+        "CheckStyle-IDEA",
+
+        "Git4Idea",
+        "org.jetbrains.plugins.github",
+
+        "JUnit",
+        "org.jetbrains.plugins.junit"
+      ]
+    },
+  },
+  "postCreateCommand": "mkdir -p .idea && cp -n .devcontainer/dataSources.xml .idea/ || true"
+}
